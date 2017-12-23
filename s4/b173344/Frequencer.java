@@ -22,16 +22,33 @@ public class Frequencer implements FrequencerInterface{
     public void setTarget(byte [] target) { myTarget = target;}
     public void setSpace(byte []space) { mySpace = space; }
     public int frequency() {
-	int targetLength = myTarget.length;
-	int spaceLength = mySpace.length;
 	int count = 0;
-	for(int start = 0; start<spaceLength; start++) { // Is it OK?
-	    boolean abort = false;
-	    for(int i = 0; i<targetLength; i++) {
-		if(myTarget[i] != mySpace[start+i]) { abort = true; break; }
-	    }
-	    if(abort == false) { count++; }
-	}
+    if(myTarget == null){
+        count = -1;
+    }
+    else if(mySpace == null){
+        count = 0;
+    }
+    else{
+        int targetLength = myTarget.length;
+        int spaceLength = mySpace.length;
+        
+        if(targetLength == 0){
+            count = -1;
+        }
+        else if(spaceLength == 0){
+            count = 0;
+        }
+        else{
+            for(int start = 0; start<spaceLength; start++) { // Is it OK?
+                boolean abort = false;
+                for(int i = 0; i<targetLength; i++) {
+                    if(myTarget[i] != mySpace[start+i]) { abort = true; break; }
+                }
+                if(abort == false) { count++; }
+            }
+        }
+    }
 	return count;
     }
 
