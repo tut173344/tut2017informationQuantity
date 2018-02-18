@@ -2,8 +2,6 @@ package s4.b173344; // Please modify to s4.Bnnnnnn, where nnnnnn is your student
 
 import java.lang.*;
 
-import com.sun.org.apache.bcel.internal.generic.IFNULL;
-
 import s4.specification.*;
 
 public class Frequencer implements FrequencerInterface {
@@ -120,7 +118,7 @@ public class Frequencer implements FrequencerInterface {
     int pivot = (right + left) / 2 + (right + left) % 2;
     int tmp = 0;
 
-    while (true) {
+    while (LeftSearch <= RightSearch) {
       while (suffixCompare(LeftSearch, pivot) == -1) {
         LeftSearch++;
       }
@@ -128,15 +126,18 @@ public class Frequencer implements FrequencerInterface {
         RightSearch--;
       }
 
-      if (LeftSearch > RightSearch) {
-        break;
+      if (LeftSearch <= RightSearch) {
+        if (pivot == LeftSearch) {
+          pivot = RightSearch;
+        } else if (pivot == RightSearch) {
+          pivot = LeftSearch;
+        }
+        tmp = Q[LeftSearch];
+        Q[LeftSearch] = Q[RightSearch];
+        Q[RightSearch] = tmp;
+        LeftSearch++;
+        RightSearch--;
       }
-
-      tmp = Q[LeftSearch];
-      Q[LeftSearch] = Q[RightSearch];
-      Q[RightSearch] = tmp;
-      LeftSearch++;
-      RightSearch--;
     }
     QuickSort(Q, left, RightSearch);
     QuickSort(Q, LeftSearch, right);
@@ -192,14 +193,6 @@ public class Frequencer implements FrequencerInterface {
     // For "Ho", it will return 5 for "Hi Ho Hi Ho".
     // For "Ho ", it will return 6 for "Hi Ho Hi Ho".
 
-    // for (int i = 0; i < mySpace.length; i++) {
-    //   if (targetCompare(i, start, end) == 0) {
-    //     return i;
-    //   }
-    // }
-
-    // return suffixArray.length;
-
     return BinarySearch(0, suffixArray.length - 1, start, end, 0);
   }
 
@@ -208,13 +201,6 @@ public class Frequencer implements FrequencerInterface {
     // not implemented yet
     // For "Ho", it will return 7 for "Hi Ho Hi Ho".
     // For "Ho ", it will return 7 for "Hi Ho Hi Ho".
-
-    // for (int i = 0; i < mySpace.length; i++) {
-    //   if (targetCompare(i, start, end) == 1) {
-    //     return i;
-    //   }
-    // }
-    // return suffixArray.length;
 
     return BinarySearch(0, suffixArray.length - 1, start, end, 1);
   }
@@ -275,9 +261,6 @@ public class Frequencer implements FrequencerInterface {
     } else {
       last1 = subByteEndIndex(start, end);
     }
-    // inspection code
-    // for(int k=start;k<end;k++) { System.out.write(myTarget[k]); }
-    // System.out.printf(": first=%d last1=%d\n", first, last1);
 
     return last1 - first;
   }
