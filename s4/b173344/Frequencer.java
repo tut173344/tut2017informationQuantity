@@ -92,20 +92,9 @@ public class Frequencer implements FrequencerInterface {
     */
     //
 
-    // for (int i = 0; i < mySpace.length - 1; i++) {
-    //   for (int j = i + 1; j < mySpace.length; j++) {
-    //     int compare = suffixCompare(i, j);
-    //     if (compare == 1) {
-    //       int tmp = suffixArray[i];
-    //       suffixArray[i] = suffixArray[j];
-    //       suffixArray[j] = tmp;
-    //     }
-    //   }
-    // }
-
     QuickSort(suffixArray, 0, suffixArray.length - 1);
 
-    printSuffixArray();
+    //printSuffixArray();
   }
 
   //クイックソート
